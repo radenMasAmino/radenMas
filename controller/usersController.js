@@ -7,7 +7,9 @@ const jwt = require('../helper/jwt')
 class Controller{
 
     static register(req, res){
-        const {username,password,nama,role}= req.body
+        console.log(req.body,"<<<")
+        const {username,password}= req.body
+        
         let encryptedPassword = bcrypt.hashPassword(password)
         usersModel.findAll({
             where:{
@@ -19,7 +21,7 @@ class Controller{
             }
             else{
                 
-                usersModel.create({username:username, password:encryptedPassword, nama : nama, role:role}, {returning: true}).then(respon =>{
+                usersModel.create({username:username, password:encryptedPassword}, {returning: true}).then(respon =>{
                 res.json(respon)
              })
              .catch(err=>{
@@ -35,7 +37,7 @@ class Controller{
         usersModel.findAll({
             where:{
                 username:username
-            },attributes: ['password']
+            }
         })
         .then(data=>{
             if(data.length){
