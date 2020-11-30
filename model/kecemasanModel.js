@@ -1,21 +1,24 @@
 const { DataTypes } = require('sequelize');
 const sq =  require('../connection');
 
-const penyakit = sq.define('Penyakit',{
+const kecemasan = sq.define('Kecemasan',{
     id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    namaPenyakit:{
+    pertanyaan:{
          type:DataTypes.STRING,
          defaultValue:''
+    },
+    flagging:{
+        type:DataTypes.INTEGER
     }
 },
 {
 paranoid:true
-}
+    }
 );
 
-penyakit.sync({ alter: true })
-module.exports = penyakit
+kecemasan.sync({ alter: true })
+module.exports = kecemasan
