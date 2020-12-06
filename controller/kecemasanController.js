@@ -5,7 +5,7 @@ const kecemasan = require('../model/kecemasanModel')
 class Controller{
 
     static register(req, res){
-        const {pertanyaan,flagging}= req.body
+        const {pertanyaan,descending}= req.body
         kecemasan.findAll({
             where:{
                 pertanyaan:pertanyaan
@@ -15,7 +15,7 @@ class Controller{
                 res.json({message :"data sudah ada"})
             }
             else{
-                kecemasan.create({pertanyaan:pertanyaan,flagging:flagging}, {returning: true}).then(respon =>{
+                kecemasan.create({pertanyaan:pertanyaan,descending:descending}, {returning: true}).then(respon =>{
                     res.json(respon)
                  })
                  .catch(err=>{
