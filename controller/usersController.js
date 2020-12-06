@@ -1,4 +1,4 @@
-const usersModel = require('../model/usersModel')
+const users = require('../model/usersModel')
 const bcrypt = require('../helper/bcrypt')
 const jwt = require('../helper/jwt')
 
@@ -7,11 +7,10 @@ const jwt = require('../helper/jwt')
 class Controller{
 
     static register(req, res){
-        console.log(req.body,"<<<")
-        const {username,password}= req.body
+        const {username,password,nama,alamat,usia,pekerjaan,email}= req.body
         
         let encryptedPassword = bcrypt.hashPassword(password)
-        usersModel.findAll({
+        users.findAll({
             where:{
                 username:username
             }
@@ -21,7 +20,7 @@ class Controller{
             }
             else{
                 
-                usersModel.create({username:username, password:encryptedPassword}, {returning: true}).then(respon =>{
+                users.create({username:username, password:encryptedPassword,nama:nama,alamat:alamat,usia:usia,pekerjaan:pekerjaan,email:email}, {returning: true}).then(respon =>{
                 res.json(respon)
              })
              .catch(err=>{
@@ -34,7 +33,7 @@ class Controller{
     static login(req,res){
         const{username,password}= req.body
 
-        usersModel.findAll({
+        users.findAll({
             where:{
                 username:username
             }
@@ -58,7 +57,7 @@ class Controller{
     
     static list(req,res){
         const{id}=req.params
-        usersModel.findAll({
+        users.findAll({
             where:{
                 id :id
             }
@@ -73,13 +72,17 @@ class Controller{
     
     static update(req,res){
         const {id}=req.params
-        const {username,password,nama,role}= req.body
+        const {username,password,nama,alamat,usia,pekerjaan,email}= req.body
         
-        usersModel.update({
+        users.update({
             username:username,
             password:password,
             nama:nama,
-            role:role
+            alamat:alamat,
+            usia:usia,
+            pekerjaan:pekerjaan,
+            email:email,
+
         },{
             where :{
                 id:id
@@ -98,13 +101,26 @@ class Controller{
 
     static delete(req,res){
         const{id}= req.params
-        usersModel.destroy({
+        users.destroy({
             where : {
                 id: id
             }
         }).then(respon=>{
             res.json(`berhasil delete id : ${id}`)
             
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+
+    static all(req,res){
+        
+        users.findAll({
+            sort:[['id','ASC']]
+        })
+        .then(respon=>{
+            res.json({respon})
         })
         .catch(err=>{
             res.json(err)
