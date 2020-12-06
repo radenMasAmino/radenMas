@@ -1,13 +1,13 @@
 const { DataTypes } = require('sequelize');
 const sq =  require('../connection');
 
-const penyakit = sq.define('Penyakit',{
+const ptsd = sq.define('PTSD',{
     id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    namaPenyakit:{
+    pertanyaan:{
          type:DataTypes.STRING,
          defaultValue:''
     }
@@ -17,5 +17,5 @@ paranoid:true
 }
 );
 
-penyakit.sync({ alter: true })
-module.exports = penyakit
+ptsd.sync({ alter: true })
+module.exports = ptsd

@@ -1,21 +1,21 @@
-const penyakit = require('../model/penyakitModel')
+const ggnBelajar = require('../model/ggnBelajarModel')
 
 
 
 class Controller{
 
     static register(req, res){
-        const {namaPenyakit}= req.body
-        penyakit.findAll({
+        const {pertanyaan}= req.body
+        ggnBelajar.findAll({
             where:{
-                namaPenyakit:namaPenyakit
+                pertanyaan:pertanyaan
             }
         }).then(data=>{
             if(data.length){
                 res.json({message :"data sudah ada"})
             }
             else{
-                penyakit.create({namaPenyakit:namaPenyakit}, {returning: true}).then(respon =>{
+                ggnBelajar.create({pertanyaan:pertanyaan}, {returning: true}).then(respon =>{
                     res.json(respon)
                  })
                  .catch(err=>{
@@ -29,7 +29,7 @@ class Controller{
     
     static list(req,res){
         const{id}=req.params
-        penyakit.findAll({
+        ggnBelajar.findAll({
             where:{
                 id :id
             }
@@ -44,7 +44,7 @@ class Controller{
 
     static all(req,res){
         
-        penyakit.findAll({
+        ggnBelajar.findAll({
             sort:[['id','ASC']]
         })
         .then(respon=>{
@@ -56,11 +56,12 @@ class Controller{
     }
     
     static update(req,res){
+        console.log(req.body)
         const {id}=req.params
-        const {namaPenyakit}= req.body
+        const {pertanyaan}= req.body
         
-        penyakit.update({
-            namaPenyakit:namaPenyakit
+        ggnBelajar.update({
+            pertanyaan:pertanyaan
         },{
             where :{
                 id:id
@@ -79,7 +80,7 @@ class Controller{
 
     static delete(req,res){
         const{id}= req.params
-        penyakit.destroy({
+        ggnBelajar.destroy({
             where : {
                 id: id
             }
