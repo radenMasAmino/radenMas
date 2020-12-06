@@ -57,11 +57,11 @@ class Controller{
     
     static update(req,res){
         const {id}=req.params
-        const {pertanyaan,flagging}= req.body
+        const {pertanyaan,descending}= req.body
         
         kecemasan.update({
             pertanyaan:pertanyaan,
-            flagging:flagging
+            descending:descending
         },{
             where :{
                 id:id
