@@ -11,7 +11,7 @@ const kecemasan = sq.define('Kecemasan',{
          type:DataTypes.STRING,
          defaultValue:''
     },
-    flagging:{
+    descending:{
         type:DataTypes.INTEGER
     }
 },
