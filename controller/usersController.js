@@ -1,7 +1,18 @@
 const users = require('../model/usersModel')
 const bcrypt = require('../helper/bcrypt')
 const jwt = require('../helper/jwt')
-
+const kecemasan = require('../model/kecemasanModel')
+const depresi = require('../model/depresiModel')
+const PTSD = require('../model/ptsdModel')
+const SRQ = require('../model/srqModel')
+const ggnBelajar = require('../model/ggnBelajarModel')
+const ggnControlEmosi=require('../model/ggnControlEmosiModel')
+const poolKecemasan = require('../model/poolKecemasanModel')
+const poolDepresi = require('../model/poolDepresiModel')
+const poolPTSD = require('../model/poolPTSDModel')
+const poolSRQ = require('../model/poolSRQModel')
+const poolGgnBelajar = require('../model/poolGgnBelajarModel')
+const poolGgnControlEmosi = require('../model/poolGgnControlEmosiModel')
 
 
 class Controller{
@@ -72,7 +83,7 @@ class Controller{
     
     static update(req,res){
         const {id}=req.params
-        const {username,password,nama,alamat,usia,pekerjaan,email}= req.body
+        const {username,password,nama,alamat,usia,pekerjaan,email,role}= req.body
         
         users.update({
             username:username,
@@ -82,6 +93,7 @@ class Controller{
             usia:usia,
             pekerjaan:pekerjaan,
             email:email,
+            role:role
 
         },{
             where :{
@@ -125,6 +137,87 @@ class Controller{
         .catch(err=>{
             res.json(err)
         })
+    }
+
+    static details(req,res){
+        const{id}=req.params
+        users.findAll({
+            where:{
+                id :id
+            },
+            include:[{model:poolDepresi,include:[depresi]},
+                    {model:poolKecemasan,include:[kecemasan]},
+                    {model:poolPTSD,include:[PTSD]},
+                    {model:poolSRQ,include:[SRQ]},
+                    {model:poolGgnBelajar,include:[ggnBelajar]},
+                    {model:poolGgnControlEmosi,include:[ggnControlEmosi]}]
+        })
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+    
+    static screening(req,res){
+        let data =[req.body]
+             //bulk
+            poolKecemasan.destroy({where:{
+            userId:data[0].userId
+        }})
+        .then(hasil=>{
+            poolDepresi.destroy({where:{
+                userId:data[0].userId
+            }})
+        })
+        .then(hasil=>{
+            poolPTSD.destroy({where:{
+                userId:data[0].userId
+            }})
+        })
+        .then(hasil=>{
+            poolSRQ.destroy({where:{
+                userId:data[0].userId
+            }})
+        })
+        .then(hasil=>{
+            poolGgnBelajar.destroy({where:{
+                userId:data[0].userId
+            }})
+        })
+        .then(hasil=>{
+            poolGgnControlEmosi.destroy({where:{
+                userId:data[0].userId
+            }})
+        })
+        
+        .then(hasil=>{
+            poolDepresi.bulkCreate(data[0].poolDepresi,{returning:true})
+        })
+        .then(hasil=>{
+            poolKecemasan.bulkCreate(data[0].poolKecemasan,{returning:true})
+        })
+        .then(hasil=>{
+            poolPTSD.bulkCreate(data[0].poolPTSD,{returning:true})
+        })
+        .then(hasil=>{
+            poolSRQ.bulkCreate(data[0].poolSRQ,{returning:true})
+        })
+        .then(hasil=>{
+            poolGgnBelajar.bulkCreate(data[0].poolGgnBelajar,{returning:true})
+        })
+        .then(hasil=>{
+            poolGgnControlEmosi.bulkCreate(data[0].poolGgnBelajar,{returning:true})
+        })
+        .then(hasil=>{
+            res.json('INPUT DATA SUKSES')
+        })
+        
+
+        
+        
+
     }
 
 }

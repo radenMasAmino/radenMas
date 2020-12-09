@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sq =  require('../connection');
 
-const kecemasan = sq.define('Kecemasan',{
+const kecemasan = sq.define('kecemasan',{
     id:{
         type: DataTypes.INTEGER,
         primaryKey: true,

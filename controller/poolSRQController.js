@@ -1,35 +1,22 @@
-const ggnControlEmosi = require('../model/ggnControlEmosiModel')
-
-
+const poolSRQ=require('../model/poolSRQModel')
+const users = require('../model/usersModel')
+const SRQ = require('../model/SRQModel')
 
 class Controller{
 
     static register(req, res){
-        const {pertanyaan}= req.body
-        ggnControlEmosi.findAll({
-            where:{
-                pertanyaan:pertanyaan
-            }
-        }).then(data=>{
-            if(data.length){
-                res.json({message :"data sudah ada"})
-            }
-            else{
-                ggnControlEmosi.create({pertanyaan:pertanyaan}, {returning: true}).then(respon =>{
-                    res.json(respon)
-                 })
-                 .catch(err=>{
-                     res.json(err)
-                 })
-            }
+        const {jawaban,point,userId,SRQId}= req.body
+         poolSRQ.create({jawaban:jawaban,point:point,userId:userId,SRQId:SRQId}, {returning: true}).then(respon =>{
+           res.json(respon)
         })
-         
-        
+        .catch(err=>{
+            res.json(err)
+        })
       }
     
     static list(req,res){
         const{id}=req.params
-        ggnControlEmosi.findAll({
+        poolSRQ.findAll({
             where:{
                 id :id
             }
@@ -42,10 +29,13 @@ class Controller{
         })
     }
 
+    
+
     static all(req,res){
         
-        ggnControlEmosi.findAll({
-            sort:[['id','ASC']]
+        poolSRQ.findAll({
+            sort:[['id','ASC']],
+            include:[users,SRQ]
         })
         .then(respon=>{
             res.json({respon})
@@ -57,10 +47,12 @@ class Controller{
     
     static update(req,res){
         const {id}=req.params
-        const {pertanyaan}= req.body
+        const {jawaban}= req.body
+        const {point} = req.body
         
-        ggnControlEmosi.update({
-            pertanyaan:pertanyaan
+        poolSRQ.update({
+            jawaban:jawaban,
+            point : point
         },{
             where :{
                 id:id
@@ -79,9 +71,9 @@ class Controller{
 
     static delete(req,res){
         const{id}= req.params
-        ggnControlEmosi.destroy({
+        poolSRQ.destroy({
             where : {
-                id: id
+                userId: id
             }
         }).then(respon=>{
             res.json(`berhasil delete id : ${id}`)
