@@ -83,6 +83,18 @@ class Controller{
             res.json(err)
         })
     }
+    static screening(req,res){
+        let data =[req.body]
+            poolGgnControlEmosi.destroy({where:{
+            userId:data[0].userId
+        }})
+        .then(hasil=>{
+            poolGgnControlEmosi.bulkCreate(data[0].poolGgnControlEmosi,{returning:true})
+        })
+        .then(hasil=>{
+            res.json('INPUT DATA SUKSES')
+        })
+    }
 
 }
 

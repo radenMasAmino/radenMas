@@ -160,65 +160,6 @@ class Controller{
         })
     }
     
-    static screening(req,res){
-        let data =[req.body]
-             //bulk
-            poolKecemasan.destroy({where:{
-            userId:data[0].userId
-        }})
-        .then(hasil=>{
-            poolDepresi.destroy({where:{
-                userId:data[0].userId
-            }})
-        })
-        .then(hasil=>{
-            poolPTSD.destroy({where:{
-                userId:data[0].userId
-            }})
-        })
-        .then(hasil=>{
-            poolSRQ.destroy({where:{
-                userId:data[0].userId
-            }})
-        })
-        .then(hasil=>{
-            poolGgnBelajar.destroy({where:{
-                userId:data[0].userId
-            }})
-        })
-        .then(hasil=>{
-            poolGgnControlEmosi.destroy({where:{
-                userId:data[0].userId
-            }})
-        })
-        
-        .then(hasil=>{
-            poolDepresi.bulkCreate(data[0].poolDepresi,{returning:true})
-        })
-        .then(hasil=>{
-            poolKecemasan.bulkCreate(data[0].poolKecemasan,{returning:true})
-        })
-        .then(hasil=>{
-            poolPTSD.bulkCreate(data[0].poolPTSD,{returning:true})
-        })
-        .then(hasil=>{
-            poolSRQ.bulkCreate(data[0].poolSRQ,{returning:true})
-        })
-        .then(hasil=>{
-            poolGgnBelajar.bulkCreate(data[0].poolGgnBelajar,{returning:true})
-        })
-        .then(hasil=>{
-            poolGgnControlEmosi.bulkCreate(data[0].poolGgnBelajar,{returning:true})
-        })
-        .then(hasil=>{
-            res.json('INPUT DATA SUKSES')
-        })
-        
-
-        
-        
-
-    }
 
 }
 

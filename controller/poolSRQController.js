@@ -84,6 +84,19 @@ class Controller{
         })
     }
 
+    static screening(req,res){
+        let data =[req.body]
+            poolSRQ.destroy({where:{
+            userId:data[0].userId
+        }})
+        .then(hasil=>{
+            poolSRQ.bulkCreate(data[0].poolSRQ,{returning:true})
+        })
+        .then(hasil=>{
+            res.json('INPUT DATA SUKSES')
+        })
+    }
+
 }
 
 module.exports=Controller

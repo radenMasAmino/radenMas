@@ -12,6 +12,7 @@ const poolPTSD=require('./poolPTSD')
 const poolSRQ = require('./poolSRQ')
 const poolGgnBelajar=require('./poolGgnBelajar')
 const poolGgnControlEmosi=require('./poolGgnControlEmosi')
+const auth = require('./auth')
 
 router.use('/users',users)
 router.use('/depresi',depresi)
@@ -26,6 +27,7 @@ router.use('/poolPTSD',poolPTSD)
 router.use('/poolSRQ',poolSRQ)
 router.use('/poolGgnBelajar',poolGgnBelajar)
 router.use('/poolGgnControlEmosi',poolGgnControlEmosi)
+router.use('/auth',auth)
 
 
 module.exports=router
