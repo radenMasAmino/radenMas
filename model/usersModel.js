@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
-const sq =  require('../connection');
+const sq =  require('../config/connection');
 
-const Users = sq.define('Users',{
+const users = sq.define('users',{
     id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -45,5 +45,5 @@ const Users = sq.define('Users',{
 paranoid:true
 });
 
-Users.sync({ alter: true })
-module.exports = Users
+users.sync({ alter: true })
+module.exports = users

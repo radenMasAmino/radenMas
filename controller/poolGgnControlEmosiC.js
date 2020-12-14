@@ -1,35 +1,22 @@
+const poolGgnControlEmosi=require('../model/poolGgnControlEmosiModel')
+const users = require('../model/usersModel')
 const ggnControlEmosi = require('../model/ggnControlEmosiModel')
-
-
 
 class Controller{
 
     static register(req, res){
-        const {pertanyaan}= req.body
-        ggnControlEmosi.findAll({
-            where:{
-                pertanyaan:pertanyaan
-            }
-        }).then(data=>{
-            if(data.length){
-                res.json({message :"data sudah ada"})
-            }
-            else{
-                ggnControlEmosi.create({pertanyaan:pertanyaan}, {returning: true}).then(respon =>{
-                    res.json(respon)
-                 })
-                 .catch(err=>{
-                     res.json(err)
-                 })
-            }
+        const {jawaban,point,userId,ggnControlEmosiId}= req.body
+         poolGgnControlEmosi.create({jawaban:jawaban,point:point,userId:userId,ggnControlEmosiId:ggnControlEmosiId}, {returning: true}).then(respon =>{
+           res.json(respon)
         })
-         
-        
+        .catch(err=>{
+            res.json(err)
+        })
       }
     
     static list(req,res){
         const{id}=req.params
-        ggnControlEmosi.findAll({
+        poolGgnControlEmosi.findAll({
             where:{
                 id :id
             }
@@ -42,10 +29,13 @@ class Controller{
         })
     }
 
+    
+
     static all(req,res){
         
-        ggnControlEmosi.findAll({
-            sort:[['id','ASC']]
+        poolGgnControlEmosi.findAll({
+            sort:[['id','ASC']],
+            include:[users,ggnControlEmosi]
         })
         .then(respon=>{
             res.json({respon})
@@ -57,10 +47,12 @@ class Controller{
     
     static update(req,res){
         const {id}=req.params
-        const {pertanyaan}= req.body
+        const {jawaban}= req.body
+        const {point} = req.body
         
-        ggnControlEmosi.update({
-            pertanyaan:pertanyaan
+        poolGgnControlEmosi.update({
+            jawaban:jawaban,
+            point : point
         },{
             where :{
                 id:id
@@ -79,9 +71,9 @@ class Controller{
 
     static delete(req,res){
         const{id}= req.params
-        ggnControlEmosi.destroy({
+        poolGgnControlEmosi.destroy({
             where : {
-                id: id
+                userId: id
             }
         }).then(respon=>{
             res.json(`berhasil delete id : ${id}`)
@@ -89,6 +81,18 @@ class Controller{
         })
         .catch(err=>{
             res.json(err)
+        })
+    }
+    static screening(req,res){
+        let data =[req.body]
+            poolGgnControlEmosi.destroy({where:{
+            userId:data[0].userId
+        }})
+        .then(hasil=>{
+            poolGgnControlEmosi.bulkCreate(data[0].poolGgnControlEmosi,{returning:true})
+        })
+        .then(hasil=>{
+            res.json('INPUT DATA SUKSES')
         })
     }
 

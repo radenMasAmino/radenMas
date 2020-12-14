@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sq =  require('../connection');
+const sq =  require('../config/connection');
 
 const ggnBelajar = sq.define('ggnBelajar',{
     id:{

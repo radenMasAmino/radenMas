@@ -3,7 +3,10 @@ const morgan = require('morgan')
 const routing = require('./routing/index')
 const cors = require('cors')
 const app = express()
+const passport = require('passport')
 
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
