@@ -1,6 +1,6 @@
 const poolSRQ=require('../model/poolSRQModel')
 const users = require('../model/usersModel')
-const SRQ = require('../model/SRQModel')
+const SRQ = require('../model/srqModel')
 
 class Controller{
 
