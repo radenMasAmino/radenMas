@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sq = require('../config/connection')
 const users = require('./usersModel')
-const SRQ = require('./SRQModel')
+const SRQ = require('./srqModel')
 
 const poolSRQ = sq.define('poolSRQ',{
     id:{
