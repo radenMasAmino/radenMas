@@ -15,6 +15,7 @@ const poolGgnBelajar = require('../model/poolGgnBelajarModel')
 const poolGgnControlEmosi = require('../model/poolGgnControlEmosiModel')
 
 
+
 class Controller{
 
     static register(req, res){
@@ -66,8 +67,8 @@ class Controller{
         })
     }
     
-    static list(req,res){
-        const{id}=req.params
+    static profil(req,res){
+        const id = req.dataUser.id
         users.findAll({
             where:{
                 id :id
@@ -82,7 +83,7 @@ class Controller{
     }
     
     static update(req,res){
-        const {id}=req.params
+        const id = req.dataUser.id
         const {username,password,nama,alamat,usia,pekerjaan,email,role}= req.body
         
         users.update({
@@ -111,20 +112,20 @@ class Controller{
 
     }
 
-    static delete(req,res){
-        const{id}= req.params
-        users.destroy({
-            where : {
-                id: id
-            }
-        }).then(respon=>{
-            res.json(`berhasil delete id : ${id}`)
+    // static delete(req,res){
+    //     const{id}= req.params
+    //     users.destroy({
+    //         where : {
+    //             id: id
+    //         }
+    //     }).then(respon=>{
+    //         res.json(`berhasil delete id : ${id}`)
             
-        })
-        .catch(err=>{
-            res.json(err)
-        })
-    }
+    //     })
+    //     .catch(err=>{
+    //         res.json(err)
+    //     })
+    // }
 
     static all(req,res){
         
@@ -140,7 +141,7 @@ class Controller{
     }
 
     static jawabanDepresi(req,res){
-        const{id}=req.params
+        const id = req.dataUser.id
         users.findAll({
             where:{
                 id :id
@@ -156,7 +157,7 @@ class Controller{
     }
 
     static jawabanKecemasan(req,res){
-        const{id}=req.params
+        const id = req.dataUser.id
         users.findAll({
             where:{
                 id :id
@@ -172,7 +173,7 @@ class Controller{
     }
 
     static jawabanPTSD(req,res){
-        const{id}=req.params
+        const id = req.dataUser.id
         users.findAll({
             where:{
                 id :id
@@ -188,7 +189,7 @@ class Controller{
     }
 
     static jawabanSRQ(req,res){
-        const{id}=req.params
+        const id = req.dataUser.id
         users.findAll({
             where:{
                 id :id
@@ -204,7 +205,7 @@ class Controller{
     }
 
     static jawabanGgnBelajar(req,res){
-        const{id}=req.params
+        const id = req.dataUser.id
         users.findAll({
             where:{
                 id :id
@@ -220,7 +221,7 @@ class Controller{
     }
 
     static jawabanGgnControlEmosi(req,res){
-        const{id}=req.params
+        const id = req.dataUser.id
         users.findAll({
             where:{
                 id :id

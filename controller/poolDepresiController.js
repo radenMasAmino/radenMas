@@ -5,7 +5,8 @@ const depresi = require('../model/depresiModel')
 class Controller{
 
     static register(req, res){
-        const {jawaban,point,userId,depresiId}= req.body
+        const userId = req.dataUser.id
+        const {jawaban,point,depresiId}= req.body
          poolDepresi.create({jawaban:jawaban,point:point,userId:userId,depresiId:depresiId}, {returning: true}).then(respon =>{
            res.json(respon)
         })
@@ -70,7 +71,7 @@ class Controller{
     }
 
     static delete(req,res){
-        const{id}= req.params
+        const id = req.dataUser.id
         poolDepresi.destroy({
             where : {
                 userId: id
@@ -85,9 +86,11 @@ class Controller{
     }
 
     static screening(req,res){
+        console.log(req.body)
+        const id = req.dataUser.id
         let data =[req.body]
             poolDepresi.destroy({where:{
-            userId:data[0].userId
+            userId:id
         }})
         .then(hasil=>{
             poolDepresi.bulkCreate(data[0].poolDepresi,{returning:true})
