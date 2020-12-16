@@ -139,18 +139,93 @@ class Controller{
         })
     }
 
-    static details(req,res){
+    static jawabanDepresi(req,res){
         const{id}=req.params
         users.findAll({
             where:{
                 id :id
             },
-            include:[{model:poolDepresi,include:[depresi]},
-                    {model:poolKecemasan,include:[kecemasan]},
-                    {model:poolPTSD,include:[PTSD]},
-                    {model:poolSRQ,include:[SRQ]},
-                    {model:poolGgnBelajar,include:[ggnBelajar]},
-                    {model:poolGgnControlEmosi,include:[ggnControlEmosi]}]
+            include:[{model:poolDepresi,include:[depresi]}]
+        })
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+
+    static jawabanKecemasan(req,res){
+        const{id}=req.params
+        users.findAll({
+            where:{
+                id :id
+            },
+            include:[{model:poolKecemasan,include:[kecemasan]}]
+        })
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+
+    static jawabanPTSD(req,res){
+        const{id}=req.params
+        users.findAll({
+            where:{
+                id :id
+            },
+            include:[{model:poolPTSD,include:[PTSD]}]
+        })
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+
+    static jawabanSRQ(req,res){
+        const{id}=req.params
+        users.findAll({
+            where:{
+                id :id
+            },
+            include:[{model:poolSRQ,include:[SRQ]}]
+        })
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+
+    static jawabanGgnBelajar(req,res){
+        const{id}=req.params
+        users.findAll({
+            where:{
+                id :id
+            },
+            include:[{model:poolGgnBelajar,include:[ggnBelajar]}]
+        })
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+
+    static jawabanGgnControlEmosi(req,res){
+        const{id}=req.params
+        users.findAll({
+            where:{
+                id :id
+            },
+            include:[{model:poolGgnControlEmosi,include:[ggnControlEmosi]}]
         })
         .then(respon=>{
             res.json({respon})
