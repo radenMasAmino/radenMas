@@ -12,6 +12,7 @@ function authentification(req,res,next){
     })
     .then(data=>{
         if(data){ 
+            req.dataUser=decode
             next()
         }
         else{

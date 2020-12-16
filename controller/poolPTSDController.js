@@ -70,7 +70,7 @@ class Controller{
     }
 
     static delete(req,res){
-        const{id}= req.params
+        const id = req.dataUser.id
         poolPTSD.destroy({
             where : {
                 userId: id
@@ -85,9 +85,10 @@ class Controller{
     }
 
     static screening(req,res){
+        const id = req.dataUser.id
         let data =[req.body]
             poolPTSD.destroy({where:{
-            userId:data[0].userId
+            userId:id
         }})
         .then(hasil=>{
             poolPTSD.bulkCreate(data[0].poolPTSD,{returning:true})

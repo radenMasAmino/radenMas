@@ -70,7 +70,7 @@ class Controller{
     }
 
     static delete(req,res){
-        const{id}= req.params
+        const id = req.dataUser.id
         poolGgnControlEmosi.destroy({
             where : {
                 userId: id
@@ -84,9 +84,10 @@ class Controller{
         })
     }
     static screening(req,res){
+        const id = req.dataUser.id
         let data =[req.body]
             poolGgnControlEmosi.destroy({where:{
-            userId:data[0].userId
+            userId:id
         }})
         .then(hasil=>{
             poolGgnControlEmosi.bulkCreate(data[0].poolGgnControlEmosi,{returning:true})
