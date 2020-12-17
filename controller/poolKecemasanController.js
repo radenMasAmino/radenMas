@@ -5,7 +5,8 @@ const kecemasan = require('../model/kecemasanModel')
 class Controller{
 
     static register(req, res){
-        const {jawaban,point,userId,kecemasanId}= req.body
+        const userId = req.dataUser.id
+        const {jawaban,point,kecemasanId}= req.body
          poolKecemasan.create({jawaban:jawaban,point:point,userId:userId,kecemasanId:kecemasanId}, {returning: true}).then(respon =>{
            res.json(respon)
         })
@@ -86,12 +87,12 @@ class Controller{
 
     static screening(req,res){
         const id = req.dataUser.id
-        let data =[req.body]
+        let data =req.body
             poolKecemasan.destroy({where:{
             userId:id
         }})
         .then(hasil=>{
-            poolKecemasan.bulkCreate(data[0].poolKecemasan,{returning:true})
+            poolKecemasan.bulkCreate(data.poolKecemasan,{returning:true})
         })
         .then(hasil=>{
             res.json('INPUT DATA SUKSES')

@@ -5,7 +5,8 @@ const PTSD = require('../model/ptsdModel')
 class Controller{
 
     static register(req, res){
-        const {jawaban,point,userId,PTSDId}= req.body
+        const userId = req.dataUser.id
+        const {jawaban,point,PTSDId}= req.body
          poolPTSD.create({jawaban:jawaban,point:point,userId:userId,PTSDId:PTSDId}, {returning: true}).then(respon =>{
            res.json(respon)
         })
@@ -86,12 +87,12 @@ class Controller{
 
     static screening(req,res){
         const id = req.dataUser.id
-        let data =[req.body]
+        let data =req.body
             poolPTSD.destroy({where:{
             userId:id
         }})
         .then(hasil=>{
-            poolPTSD.bulkCreate(data[0].poolPTSD,{returning:true})
+            poolPTSD.bulkCreate(data.poolPTSD,{returning:true})
         })
         .then(hasil=>{
             res.json('INPUT DATA SUKSES')
