@@ -88,12 +88,12 @@ class Controller{
     static screening(req,res){
         console.log(req.body)
         const id = req.dataUser.id
-        let data =[req.body]
+        let data =req.body
             poolDepresi.destroy({where:{
             userId:id
         }})
         .then(hasil=>{
-            poolDepresi.bulkCreate(data[0].poolDepresi,{returning:true})
+            poolDepresi.bulkCreate(data.poolDepresi,{returning:true})
         })
         .then(hasil=>{
             res.json('INPUT DATA SUKSES')

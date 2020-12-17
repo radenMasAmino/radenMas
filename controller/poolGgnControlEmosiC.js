@@ -5,7 +5,8 @@ const ggnControlEmosi = require('../model/ggnControlEmosiModel')
 class Controller{
 
     static register(req, res){
-        const {jawaban,point,userId,ggnControlEmosiId}= req.body
+        const userId = req.dataUser.id
+        const {jawaban,point,ggnControlEmosiId}= req.body
          poolGgnControlEmosi.create({jawaban:jawaban,point:point,userId:userId,ggnControlEmosiId:ggnControlEmosiId}, {returning: true}).then(respon =>{
            res.json(respon)
         })
@@ -85,12 +86,12 @@ class Controller{
     }
     static screening(req,res){
         const id = req.dataUser.id
-        let data =[req.body]
+        let data =req.body
             poolGgnControlEmosi.destroy({where:{
             userId:id
         }})
         .then(hasil=>{
-            poolGgnControlEmosi.bulkCreate(data[0].poolGgnControlEmosi,{returning:true})
+            poolGgnControlEmosi.bulkCreate(data.poolGgnControlEmosi,{returning:true})
         })
         .then(hasil=>{
             res.json('INPUT DATA SUKSES')

@@ -5,7 +5,8 @@ const SRQ = require('../model/srqModel')
 class Controller{
 
     static register(req, res){
-        const {jawaban,point,userId,SRQId}= req.body
+        const userId = req.dataUser.id
+        const {jawaban,point,SRQId}= req.body
          poolSRQ.create({jawaban:jawaban,point:point,userId:userId,SRQId:SRQId}, {returning: true}).then(respon =>{
            res.json(respon)
         })
@@ -86,12 +87,12 @@ class Controller{
 
     static screening(req,res){
         const id = req.dataUser.id
-        let data =[req.body]
+        let data =req.body
             poolSRQ.destroy({where:{
             userId:id
         }})
         .then(hasil=>{
-            poolSRQ.bulkCreate(data[0].poolSRQ,{returning:true})
+            poolSRQ.bulkCreate(data.poolSRQ,{returning:true})
         })
         .then(hasil=>{
             res.json('INPUT DATA SUKSES')
