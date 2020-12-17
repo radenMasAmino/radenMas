@@ -85,14 +85,17 @@ class Controller{
         })
     }
 
-    static screening(req,res){
+     static async screening(req,res){
         const id = req.dataUser.id
-        let data =req.body
+        for(let i = 0;i<req.body.length;i++){
+           req.body[i].userId= await id
+        }
+        // let data =req.body
             poolKecemasan.destroy({where:{
             userId:id
         }})
         .then(hasil=>{
-            poolKecemasan.bulkCreate(data.poolKecemasan,{returning:true})
+            poolKecemasan.bulkCreate(req.body,{returning:true})
         })
         .then(hasil=>{
             res.json('INPUT DATA SUKSES')
