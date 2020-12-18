@@ -1,5 +1,5 @@
 const srq = require('../model/srqModel')
-
+const poolSrq = require('../model/poolSRQModel')
 
 
 class Controller{
@@ -92,6 +92,24 @@ class Controller{
         })
     }
 
+    static history(req,res){
+        console.log(req.dataUser.id)
+        srq.findAll(
+        { 
+            include:[{model:poolSrq,
+                required:false,
+            where:{
+                userId:req.dataUser.id,     
+            }}]
+            
+        })
+        .then(respon=>{
+            res.json({respon, idUser: req.dataUser.id})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
 }
 
 module.exports=Controller
