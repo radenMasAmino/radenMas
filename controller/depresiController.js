@@ -46,7 +46,7 @@ class Controller{
     static all(req,res){
         
         depresi.findAll({
-            sort:[['id','ASC']]
+            sort:[['nomor','ASC']]
         })
         .then(respon=>{
             res.json({respon})

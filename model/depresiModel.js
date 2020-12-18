@@ -10,6 +10,10 @@ const depresi = sq.define('depresi',{
     pertanyaan:{
          type:DataTypes.STRING,
          defaultValue:''
+    },
+    nomor:{
+        type:DataTypes.INTEGER,
+        defaultValue:0
     }
 },
 {

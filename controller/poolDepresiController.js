@@ -35,7 +35,7 @@ class Controller{
     static all(req,res){
         
         poolDepresi.findAll({
-            sort:[['id','ASC']],
+            sort:[['nomor','ASC']],
             include:[users,depresi]
         })
         .then(respon=>{
