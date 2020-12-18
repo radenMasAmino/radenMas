@@ -93,7 +93,7 @@ class Controller{
     }
 
     static history(req,res){
-        console.log(req.dataUser.id)
+
         srq.findAll(
         { 
             include:[{model:poolSrq,
@@ -104,7 +104,7 @@ class Controller{
             
         })
         .then(respon=>{
-            res.json({respon, idUser: req.dataUser.id})
+            res.json({respon})
         })
         .catch(err=>{
             res.json(err)
