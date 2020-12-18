@@ -1,4 +1,5 @@
 const kecemasan = require('../model/kecemasanModel')
+const poolKecemasan = require('../model/poolKecemasanModel')
 
 
 
@@ -87,6 +88,25 @@ class Controller{
         }).then(respon=>{
             res.json(`berhasil delete id : ${id}`)
             
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+
+    static history(req,res){
+
+        kecemasan.findAll(
+        { 
+            include:[{model:poolKecemasan,
+                required:false,
+            where:{
+                userId:req.dataUser.id,     
+            }}]
+            
+        })
+        .then(respon=>{
+            res.json({respon})
         })
         .catch(err=>{
             res.json(err)

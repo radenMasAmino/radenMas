@@ -1,3 +1,4 @@
+const poolPTSD = require('../model/poolPTSDModel')
 const ptsd = require('../model/ptsdModel')
 
 
@@ -86,6 +87,25 @@ class Controller{
         }).then(respon=>{
             res.json(`berhasil delete id : ${id}`)
             
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+
+    static history(req,res){
+
+        ptsd.findAll(
+        { 
+            include:[{model:poolPTSD,
+                required:false,
+            where:{
+                userId:req.dataUser.id,     
+            }}]
+            
+        })
+        .then(respon=>{
+            res.json({respon})
         })
         .catch(err=>{
             res.json(err)

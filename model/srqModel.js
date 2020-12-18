@@ -10,7 +10,7 @@ const srq = sq.define('SRQ',{
     pertanyaan:{
          type:DataTypes.STRING,
          defaultValue:''
-    }
+    },
 },
 {
 paranoid:true

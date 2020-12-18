@@ -1,5 +1,6 @@
 const srq = require('../model/srqModel')
 const poolSrq = require('../model/poolSRQModel')
+const poolSRQ = require('../model/poolSRQModel')
 
 
 class Controller{
@@ -109,6 +110,13 @@ class Controller{
         .catch(err=>{
             res.json(err)
         })
+    }
+
+    static totalPoint(req,res){
+        let userId= req.dataUser.id
+        poolSRQ.sum('point', { where: { userId:userId } }).then(respon => {
+            res.json({total:respon})
+          })
     }
 }
 
