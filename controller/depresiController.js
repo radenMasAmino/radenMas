@@ -114,6 +114,25 @@ class Controller{
         })
     }
 
+    static historyAdmin(req,res){
+        const {id}= req.params
+        depresi.findAll(
+        { 
+            include:[{model:poolDepresi,
+                required:false,
+            where:{
+                userId:id,     
+            }}]
+            
+        })
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+
 }
 
 module.exports=Controller

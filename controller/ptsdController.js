@@ -112,6 +112,25 @@ class Controller{
         })
     }
 
+    static historyAdmin(req,res){
+        const {id}= req.params
+        ptsd.findAll(
+        { 
+            include:[{model:poolPTSD,
+                required:false,
+            where:{
+                userId:id,     
+            }}]
+            
+        })
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+
 }
 
 module.exports=Controller

@@ -113,6 +113,25 @@ class Controller{
         })
     }
 
+    static historyAdmin(req,res){
+        const {id}= req.params
+        kecemasan.findAll(
+        { 
+            include:[{model:poolKecemasan,
+                required:false,
+            where:{
+                userId:id,     
+            }}]
+            
+        })
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+
 }
 
 module.exports=Controller

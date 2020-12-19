@@ -118,6 +118,25 @@ class Controller{
             res.json({total:respon})
           })
     }
+
+    static historyAdmin(req,res){
+        const {id}= req.params
+        srq.findAll(
+        { 
+            include:[{model:poolSRQ,
+                required:false,
+            where:{
+                userId:id,     
+            }}]
+            
+        })
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
 }
 
 module.exports=Controller

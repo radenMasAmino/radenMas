@@ -10,6 +10,7 @@ router.get('/list/:id',authentification,authorizationAdmin,controller.list)
 router.get('/all',authentification,controller.all)
 router.get('/history',authentification,controller.history)
 router.get('/totalPoint',authentification,controller.totalPoint)
+router.get('/historyAdmin/:id',authorizationAdmin,controller.historyAdmin)
 
 
 module.exports=router
