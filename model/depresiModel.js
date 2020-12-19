@@ -14,6 +14,10 @@ const depresi = sq.define('depresi',{
     nomor:{
         type:DataTypes.INTEGER,
         defaultValue:0
+    },
+    score:{
+        type:DataTypes.INTEGER,
+        defaultValue:0
     }
 },
 {

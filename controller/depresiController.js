@@ -6,7 +6,7 @@ const poolDepresi = require('../model/poolDepresiModel')
 class Controller{
 
     static register(req, res){
-        const {pertanyaan}= req.body
+        const {pertanyaan,nomor,score}= req.body
         depresi.findAll({
             where:{
                 pertanyaan:pertanyaan
@@ -16,7 +16,7 @@ class Controller{
                 res.json({message :"data sudah ada"})
             }
             else{
-                depresi.create({pertanyaan:pertanyaan}, {returning: true}).then(respon =>{
+                depresi.create({pertanyaan:pertanyaan,score:score,nomor:nomor}, {returning: true}).then(respon =>{
                     res.json(respon)
                  })
                  .catch(err=>{
@@ -58,10 +58,12 @@ class Controller{
     
     static update(req,res){
         const {id}=req.params
-        const {pertanyaan}= req.body
+        const {pertanyaan,score,nomor}= req.body
         
         depresi.update({
-            pertanyaan:pertanyaan
+            pertanyaan:pertanyaan,
+            score:score,
+            nomor:nomor
         },{
             where :{
                 id:id
