@@ -81,6 +81,21 @@ class Controller{
             res.json(err)
         })
     }
+
+    static profilByAdmin(req,res){
+        const {id} = req.params
+        users.findAll({
+            where:{
+                id :id
+            }
+        },{returning:true})
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
     
     static update(req,res){
         const id = req.dataUser.id
