@@ -15,6 +15,25 @@ app.use(cors())
 app.use('/', routing)
 
 const port = 8805
-app.listen(port, () => {
-  console.log(`telah tersambung pada port : ${port}`)
+const httpServer = require("http").createServer(app);
+
+const io = require('socket.io')(httpServer);
+io.on('connection', function(socket) {
+  console.log('Client connected to the WebSocket');
+
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+  });
+
+  socket.on('chat message', function(msg) {
+    console.log("Received a chat message");
+    io.emit('chat message', msg);
+  });
 })
+
+httpServer.listen(port,() => {
+    console.log(`telah tersambung pada port : ${port}`)
+  })
+// app.listen(port, () => {
+//   console.log(`telah tersambung pada port : ${port}`)
+// })
