@@ -1,23 +1,22 @@
 const { DataTypes } = require('sequelize');
 const sq =  require('../config/connection');
 
-const chat = sq.define('users',{
+const chat = sq.define('chat',{
     id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
     userId:{
-         type:DataTypes.STRING,
-         defaultValue:''
+         type:DataTypes.INTEGER,
+         defaultValue:0
     },
     adminId:{
-        type:DataTypes.STRING,
-        defaultValue:''
+        type:DataTypes.INTEGER,
+        defaultValue:0
     },
     isi:{
         type:DataTypes.STRING,
-        defaultValue:""
     },
     userRead:{
         type:DataTypes.INTEGER,
@@ -25,7 +24,7 @@ const chat = sq.define('users',{
     },
     adminRead:{
         type:DataTypes.INTEGER,
-        defaultValue:1
+        defaultValue:0
     },
 },
 {

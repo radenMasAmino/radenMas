@@ -6,6 +6,7 @@ const ggnControlEmosi = require('./ggnControlEmosi')
 const ptsd = require('./ptsd')
 const ggnBelajar=require('./ggnBelajar')
 const srq=require('./srq')
+const chat=require('./chat')
 const poolDepresi=require('./poolDepresi')
 const poolKecemasan=require('./poolKecemasan')
 const poolPTSD=require('./poolPTSD')
@@ -28,6 +29,6 @@ router.use('/poolSRQ',poolSRQ)
 router.use('/poolGgnBelajar',poolGgnBelajar)
 router.use('/poolGgnControlEmosi',poolGgnControlEmosi)
 router.use('/auth',auth)
-
+router.use('/chat',chat)
 
 module.exports=router
