@@ -51,10 +51,19 @@ io.on('connection', function(socket) {
   })
 
   socket.on("chat", (userId, chat, adminId) => {
-    console.log(userId, chat, adminId)
-    chatModel.create({userId, isi:chat, adminId}, {returning: true}).then(respon =>{
+    let simpan = {userId, isi:chat, adminId}
+    if(adminId){
+      simpan.adminRead = 1;
+
+    }else{
+      simpan.userRead =1;
+      console.log('ini user')
+      io.emit('updateJumlah', userId)
+    }
+    chatModel.create(simpan, {returning: true}).then(respon =>{
     
       io.to(userId).emit('chatMasuk', respon);
+      io.to(userId).emit('updateJumlahChat');
    })
    .catch(err=>{
     

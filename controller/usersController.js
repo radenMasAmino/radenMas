@@ -13,7 +13,8 @@ const poolPTSD = require('../model/poolPTSDModel')
 const poolSRQ = require('../model/poolSRQModel')
 const poolGgnBelajar = require('../model/poolGgnBelajarModel')
 const poolGgnControlEmosi = require('../model/poolGgnControlEmosiModel')
-
+const { QueryTypes } = require('sequelize');
+const koneksi= require('../config/connection');
 function createAdmin() {
     let adminpass = bcrypt.hashPassword("radenmasamino")
     users.findOrCreate({
@@ -158,17 +159,9 @@ class Controller{
     //     })
     // }
 
-    static all(req,res){
-        
-        users.findAll({
-            sort:[['id','ASC']]
-        })
-        .then(respon=>{
-            res.json({respon})
-        })
-        .catch(err=>{
-            res.json(err)
-        })
+    static async all(req,res){
+        let data = await koneksi.query("SELECT *, (select count(id) as jml from chats where \"userId\"=users.id and \"adminRead\"=0 ) as jml FROM users", { type: QueryTypes.SELECT });
+        res.json({data})
     }
 
     static jawabanDepresi(req,res){
