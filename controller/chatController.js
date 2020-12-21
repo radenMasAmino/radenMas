@@ -1,6 +1,7 @@
 const srq = require('../model/srqModel')
 const poolSrq = require('../model/poolSRQModel')
 const poolSRQ = require('../model/poolSRQModel')
+const chat = require('../model/chatModel')
 
 
 class Controller{
@@ -137,6 +138,25 @@ class Controller{
             res.json(err)
         })
     }
+
+    static countUnread(req,res){
+       let userId= req.dataUser.id
+       chat.findAndCountAll({
+         where: {
+            userId:userId,
+            userRead:0
+
+     }
+  })
+    .then(respon=>{
+        res.json({jumlahUnread:respon.count})
+    })
+    .catch(err=>{
+    res.json(err)
+    })
+}
+
+
 }
 
 module.exports=Controller

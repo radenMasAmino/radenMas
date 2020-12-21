@@ -1,6 +1,6 @@
 const srq = require('../model/srqModel')
-const poolSrq = require('../model/poolSRQModel')
 const poolSRQ = require('../model/poolSRQModel')
+
 
 
 class Controller{
@@ -97,7 +97,7 @@ class Controller{
 
         srq.findAll(
         { 
-            include:[{model:poolSrq,
+            include:[{model:poolSRQ,
                 required:false,
             where:{
                 userId:req.dataUser.id,     
@@ -137,6 +137,9 @@ class Controller{
             res.json(err)
         })
     }
+
+    
+
 }
 
 module.exports=Controller

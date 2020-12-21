@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const controller = require('../controller/srqController')
+const controller = require('../controller/chatController')
 const authentification = require('../middleware/authentification')
 const {authorizationAdmin} = require('../middleware/authorization')
 
@@ -11,6 +11,7 @@ router.get('/all',authentification,controller.all)
 router.get('/history',authentification,controller.history)
 router.get('/totalPoint',authentification,controller.totalPoint)
 router.get('/historyAdmin/:id',authorizationAdmin,controller.historyAdmin)
+router.get('/countUnread',authentification,controller.countUnread)
 
 
 module.exports=router
