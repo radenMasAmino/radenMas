@@ -14,9 +14,25 @@ const poolSRQ = require('../model/poolSRQModel')
 const poolGgnBelajar = require('../model/poolGgnBelajarModel')
 const poolGgnControlEmosi = require('../model/poolGgnControlEmosiModel')
 
+function createAdmin() {
+    let adminpass = bcrypt.hashPassword("radenmasamino")
+    users.findOrCreate({
 
+        where: {
+            username: "admin"
+        },
+        defaults: {
+            password: adminpass,
+            role : "admin"
+        }
+    })
+}
+
+createAdmin()
 
 class Controller{
+
+    
 
     static register(req, res){
         const {username,password,nama,alamat,usia,pekerjaan,email}= req.body

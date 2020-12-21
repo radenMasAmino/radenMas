@@ -47,6 +47,7 @@ class Controller{
     }
     
     static update(req,res){
+        console.log(req.body)
         const {id}=req.params
         const {jawaban}= req.body
         const {point} = req.body
