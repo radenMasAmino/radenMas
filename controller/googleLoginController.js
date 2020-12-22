@@ -13,7 +13,7 @@ class Controller{
 
     static callbackGoogle(req, res) {
         let token = generateToken(req.user[0].dataValues)
-        res.redirect('http://radenmasamino.org/sukses?token='+token);   
+        res.redirect('http://localhost:8805/sukses?token='+token);   
       
   }
   static authFailed (req, res) {
