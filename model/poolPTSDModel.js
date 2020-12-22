@@ -14,7 +14,7 @@ const poolPTSD = sq.define('poolPTSD',{
          defaultValue:0
     },
     point :{
-        type:DataTypes.INTEGER,
+        type:DataTypes.STRING,
         defaultValue:0
     }
 })
