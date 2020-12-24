@@ -6,7 +6,7 @@ const app = express()
 const passport = require('passport')
 
 
-
+app.use(express.static('asset/pdf'))
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(morgan('dev'))
