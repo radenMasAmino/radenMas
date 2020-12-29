@@ -99,6 +99,10 @@ class Controller{
 
         depresi.findAll(
         { 
+            order: [
+                // Will escape title and validate DESC against a list of valid direction parameters
+                ['nomor', 'DESC'],
+            ],
             include:[{model:poolDepresi,
                 required:false,
             where:{
@@ -118,6 +122,10 @@ class Controller{
         const {id}= req.params
         depresi.findAll(
         { 
+            order: [
+                // Will escape title and validate DESC against a list of valid direction parameters
+                ['nomor', 'DESC'],
+            ],
             include:[{model:poolDepresi,
                 required:false,
             where:{
