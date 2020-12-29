@@ -102,6 +102,7 @@ class Controller{
             order: [
                 // Will escape title and validate DESC against a list of valid direction parameters
                 ['nomor', 'DESC'],
+                ['score', 'ASC'],
             ],
             include:[{model:poolDepresi,
                 required:false,
@@ -125,6 +126,7 @@ class Controller{
             order: [
                 // Will escape title and validate DESC against a list of valid direction parameters
                 ['nomor', 'DESC'],
+                ['score', 'ASC'],
             ],
             include:[{model:poolDepresi,
                 required:false,
