@@ -145,7 +145,7 @@ class Controller{
                 // console.log(data3[0].pertanyaan)
 
                 let workbook = new excel.Workbook();
-                let worksheet = workbook.addWorksheet("Tutorials");
+                let worksheet = workbook.addWorksheet("PTSD");
                 let n =[  { header: "No", key: "id", width: 5 },{ header: "Nama", key: "nama", width: 25 },]
                 
 
@@ -167,7 +167,7 @@ class Controller{
                     );
                     res.setHeader(
                     "Content-Disposition",
-                    "attachment; filename=" + "tutorials.xlsx"
+                    "attachment; filename=" + "PTSD.xlsx"
                     );
 
                     return workbook.xlsx.write(res).then(function () {
