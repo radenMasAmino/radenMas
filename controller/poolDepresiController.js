@@ -1,7 +1,9 @@
 const poolDepresi=require('../model/poolDepresiModel')
 const users = require('../model/usersModel')
 const depresi = require('../model/depresiModel')
-
+const excel = require("exceljs");
+const koneksi= require('../config/connection');
+const { QueryTypes } = require('sequelize');
 class Controller{
 
     static register(req, res){
@@ -101,6 +103,45 @@ class Controller{
         .then(hasil=>{
             res.json('INPUT DATA SUKSES')
         })
+    }
+
+    static downloadDepresi(req,res){
+        users.findAll({attributes:["id","nama"],order:["id"]})
+        .then(async (data1)=>{
+            // res.json(data1)
+            for(let i =0;i<data1.length;i++){
+                
+            let data2 = await depresi.findAll({
+                    include:[{model:poolDepresi,required:false,
+                    where:{
+                        userId:data1[i].dataValues.id
+                    }}
+                 ]
+                })
+               
+                    for(let j = 0;j<data2.length;j++){
+                        let a = j+1
+                        // console.log(data1[i].dataValues,"<<<")
+                        // console.log(data2[j].dataValues.poolDepresis[0].dataValues,"<<<<<<<<<")
+                        if(data2[j].dataValues.poolDepresis[0]){
+                        data1[i].dataValues['jawaban'+a]=data2[j].dataValues.poolDepresis[0].jawaban
+                        }
+                        else{
+                        data1[i].dataValues['jawaban'+a]=""
+                        }
+                    }
+            }
+//excell
+
+            depresi.findAll({order:["id"]})
+            .then(data3=>{
+                res.json(data3)
+            })
+
+
+            // res.json(data1)
+        })
+        
     }
 
 }
