@@ -129,7 +129,7 @@ class Controller{
                         data1[i].dataValues['jawaban'+a]=data2[j].dataValues.poolPTSDs[0].dataValues.jawaban
                         }
                         else{
-                        data1[i].dataValues['jawaban'+a]="none"
+                        data1[i].dataValues['jawaban'+a]="null"
                         }
                     }
             }

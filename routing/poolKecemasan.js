@@ -9,5 +9,6 @@ router.delete('/delete',authentification,authorizationGuest,controller.delete)
 router.get('/list/:id',authentification,controller.list)
 router.get('/all',authentification,authorizationGuest,controller.all)
 router.post('/screening',authentification,authorizationGuest,controller.screening)
+router.get('/downloadKecemasan',controller.downloadKecemasan)
  
 module.exports=router

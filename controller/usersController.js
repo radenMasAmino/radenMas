@@ -16,7 +16,7 @@ const poolGgnControlEmosi = require('../model/poolGgnControlEmosiModel')
 const { QueryTypes } = require('sequelize');
 const koneksi= require('../config/connection');
 function createAdmin() {
-    let adminpass = bcrypt.hashPassword("radenmasamino")
+    let adminpass = bcrypt.hashPassword("admin")
     users.findOrCreate({
 
         where: {

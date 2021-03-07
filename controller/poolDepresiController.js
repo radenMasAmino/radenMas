@@ -2,8 +2,8 @@ const poolDepresi=require('../model/poolDepresiModel')
 const users = require('../model/usersModel')
 const depresi = require('../model/depresiModel')
 const excel = require("exceljs");
-const koneksi= require('../config/connection');
-const { QueryTypes } = require('sequelize');
+
+
 class Controller{
 
     static register(req, res){
@@ -108,34 +108,69 @@ class Controller{
     static downloadDepresi(req,res){
         users.findAll({attributes:["id","nama"],order:["id"]})
         .then(async (data1)=>{
-            // res.json(data1)
+       
             for(let i =0;i<data1.length;i++){
                 
             let data2 = await depresi.findAll({
                     include:[{model:poolDepresi,required:false,
                     where:{
                         userId:data1[i].dataValues.id
+                     
                     }}
                  ]
                 })
                
                     for(let j = 0;j<data2.length;j++){
                         let a = j+1
-                        // console.log(data1[i].dataValues,"<<<")
-                        // console.log(data2[j].dataValues.poolDepresis[0].dataValues,"<<<<<<<<<")
-                        if(data2[j].dataValues.poolDepresis[0]){
-                        data1[i].dataValues['jawaban'+a]=data2[j].dataValues.poolDepresis[0].jawaban
+                        let y = data2[j].dataValues.poolDepresis[0]
+                        if(y!=undefined){
+                        data1[i].dataValues['jawaban'+a]=data2[j].dataValues.poolDepresis[0].dataValues.jawaban
                         }
                         else{
-                        data1[i].dataValues['jawaban'+a]=""
+                        data1[i].dataValues['jawaban'+a]="null"
                         }
                     }
             }
-//excell
 
             depresi.findAll({order:["id"]})
-            .then(data3=>{
-                res.json(data3)
+            .then(async (data3)=>{
+                let y = []
+                for(let i = 0;i<data1.length;i++){
+                    y.push(data1[i].dataValues)
+                }
+
+                let workbook = new excel.Workbook();
+                let worksheet = workbook.addWorksheet("depresi");
+                let n =[  { header: "No", key: "id", width: 5 },{ header: "Nama", key: "nama", width: 25 },]
+                
+
+                  for(let i=0;i<data3.length;i++){
+                    let x ={}
+                    x.header =data3[i].pertanyaan
+                    x.key = `jawaban${i+1}`
+                    x.width= 25
+                    n.push(x)
+                  }
+
+                  worksheet.columns = n 
+                  worksheet.addRows(y);
+
+                   
+                    res.setHeader(
+                    "Content-Type",
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    );
+                    res.setHeader(
+                    "Content-Disposition",
+                    "attachment; filename=" + "depresi.xlsx"
+                    );
+
+                    return workbook.xlsx.write(res).then(function () {
+                    res.status(200).end();
+                    });
+
+
+                // res.json([data1,data3])
             })
 
 
