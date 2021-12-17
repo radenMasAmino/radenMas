@@ -14,7 +14,7 @@ passport.serializeUser(function(user, done) {
 passport.use(new GoogleStrategy({
     clientID: "254452238572-1kls0dqm7mk7235r5d1bio6uh2pveb9r.apps.googleusercontent.com",
     clientSecret: "L0MeavIWyz-ybflL_d1EByQi",
-    callbackURL: "http://backend.radenmasamino.org/auth/google/callback"
+    callbackURL: "https://backend.radenmasamino.org/auth/google/callback"
   },
  async function(accessToken, refreshToken, profile,done) {
    await users.findOrCreate({
